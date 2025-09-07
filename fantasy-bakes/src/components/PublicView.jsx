@@ -65,7 +65,7 @@ function PublicView() {
       window.removeEventListener('storage', handleStorageChange);
       clearInterval(pollInterval);
     };
-  }, [data]);
+  }, []);
 
   if (loading) {
     return <div className="loading">Loading Fantasy Bakes...</div>;
