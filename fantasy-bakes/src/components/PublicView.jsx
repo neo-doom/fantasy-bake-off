@@ -93,7 +93,7 @@ function PublicView() {
       </header>
 
       <main className="main-content">
-        <Leaderboard selectedWeek={selectedWeek} key={`${selectedWeek}-${JSON.stringify(data?.season?.weeks?.find(w => w.weekNumber === selectedWeek)?.scores || {})}`} />
+        <Leaderboard selectedWeek={selectedWeek} />
         
         <div className="last-updated">
           Last updated: {new Date().toLocaleString()}

@@ -10,6 +10,7 @@ function Leaderboard({ selectedWeek }) {
   useEffect(() => {
     const loadScores = () => {
       try {
+        setLoading(true);
         const scores = dataService.getTeamScores(selectedWeek);
         setTeamScores(scores);
         
@@ -23,7 +24,28 @@ function Leaderboard({ selectedWeek }) {
       }
     };
 
+    // Initial load
     loadScores();
+
+    // Listen for localStorage changes to refresh data
+    const handleStorageChange = (e) => {
+      if (e.key === 'fantasy-bakes-data') {
+        loadScores();
+      }
+    };
+
+    // Listen for storage events (from other tabs/windows)
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Also poll for data changes every 3 seconds
+    const pollInterval = setInterval(() => {
+      loadScores();
+    }, 3000);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      clearInterval(pollInterval);
+    };
   }, [selectedWeek]);
 
   const getBakerWeekScore = (bakerId) => {
