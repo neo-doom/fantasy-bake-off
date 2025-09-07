@@ -29,7 +29,33 @@ function PublicView() {
     };
 
     loadData();
-  }, []);
+
+    // Listen for data changes from admin console
+    const handleStorageChange = (e) => {
+      if (e.key === 'fantasy-bakes-data') {
+        loadData();
+      }
+    };
+
+    // Listen for storage events (from other tabs/windows)
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Also poll for data changes every 5 seconds in case of same-tab changes
+    const pollInterval = setInterval(() => {
+      const currentDataString = localStorage.getItem('fantasy-bakes-data');
+      const currentData = currentDataString ? JSON.parse(currentDataString) : null;
+      
+      // Simple comparison - if the stringified data changed, reload
+      if (data && JSON.stringify(currentData) !== JSON.stringify(data)) {
+        loadData();
+      }
+    }, 5000);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      clearInterval(pollInterval);
+    };
+  }, [data]);
 
   if (loading) {
     return <div className="loading">Loading Fantasy Bakes...</div>;
@@ -67,7 +93,7 @@ function PublicView() {
       </header>
 
       <main className="main-content">
-        <Leaderboard selectedWeek={selectedWeek} />
+        <Leaderboard selectedWeek={selectedWeek} key={`${selectedWeek}-${JSON.stringify(data?.season?.weeks?.find(w => w.weekNumber === selectedWeek)?.scores || {})}`} />
         
         <div className="last-updated">
           Last updated: {new Date().toLocaleString()}
