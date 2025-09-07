@@ -20,10 +20,16 @@ export default async function handler(req, res) {
 
   try {
     const blobUrl = process.env.VITE_VERCEL_BLOB_URL;
+    const blobToken = process.env.BLOB_READ_WRITE_TOKEN;
     
     if (!blobUrl) {
       console.error('VITE_VERCEL_BLOB_URL not configured');
       return res.status(500).json({ error: 'Blob URL not configured' });
+    }
+
+    if (!blobToken) {
+      console.error('BLOB_READ_WRITE_TOKEN not configured');
+      return res.status(500).json({ error: 'Blob token not configured' });
     }
 
     console.log('Fetching data from blob storage:', blobUrl);
@@ -31,6 +37,7 @@ export default async function handler(req, res) {
     const response = await fetch(blobUrl, {
       method: 'GET',
       headers: {
+        'Authorization': `Bearer ${blobToken}`,
         'Cache-Control': 'no-cache',
       }
     });
