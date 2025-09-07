@@ -9,9 +9,9 @@ function PublicView() {
   const [selectedWeek, setSelectedWeek] = useState(null);
 
   useEffect(() => {
-    const loadData = () => {
+    const loadData = async () => {
       try {
-        const gameData = dataService.getData();
+        const gameData = await dataService.getData();
         setData(gameData);
         
         // Set default selected week to the current week or first active week
@@ -40,16 +40,26 @@ function PublicView() {
     // Listen for storage events (from other tabs/windows)
     window.addEventListener('storage', handleStorageChange);
     
-    // Also poll for data changes every 5 seconds in case of same-tab changes
-    const pollInterval = setInterval(() => {
-      const currentDataString = localStorage.getItem('fantasy-bakes-data');
-      const currentData = currentDataString ? JSON.parse(currentDataString) : null;
-      
-      // Simple comparison - if the stringified data changed, reload
-      if (data && JSON.stringify(currentData) !== JSON.stringify(data)) {
-        loadData();
+    // Also poll for data changes every 30 seconds to check blob storage
+    const pollInterval = setInterval(async () => {
+      try {
+        const freshData = await dataService.getData();
+        // Simple comparison - if the stringified data changed, update
+        if (data && JSON.stringify(freshData) !== JSON.stringify(data)) {
+          setData(freshData);
+          
+          // Update selected week if needed
+          const activeWeeks = freshData.season.weeks.filter(w => w.active);
+          if (activeWeeks.length > 0 && !activeWeeks.find(w => w.weekNumber === selectedWeek)) {
+            const currentWeek = activeWeeks.find(w => w.weekNumber === freshData.season.currentWeek);
+            const defaultWeek = currentWeek || activeWeeks.sort((a, b) => a.weekNumber - b.weekNumber)[0];
+            setSelectedWeek(defaultWeek.weekNumber);
+          }
+        }
+      } catch (error) {
+        console.warn('Failed to poll for data updates:', error);
       }
-    }, 5000);
+    }, 30000);
 
     return () => {
       window.removeEventListener('storage', handleStorageChange);

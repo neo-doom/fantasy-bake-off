@@ -1,33 +1,90 @@
-import sampleData from '../data/sampleData.json';
 import config from '../config/config.json';
+import blobStorage from './blobStorage.js';
 
 class DataService {
   constructor() {
-    this.storageKey = 'fantasy-bakes-data';
     this.configKey = 'fantasy-bakes-config';
     this.initializeData();
   }
 
   initializeData() {
-    const existingData = localStorage.getItem(this.storageKey);
     const existingConfig = localStorage.getItem(this.configKey);
-    
-    // Force update to latest sample data for development
-    // Remove this in production
-    localStorage.setItem(this.storageKey, JSON.stringify(sampleData));
     
     if (!existingConfig) {
       localStorage.setItem(this.configKey, JSON.stringify(config));
     }
   }
 
-  getData() {
-    const data = localStorage.getItem(this.storageKey);
-    return data ? JSON.parse(data) : sampleData;
+  /**
+   * Get data - always fetch fresh from blob storage
+   */
+  async getData() {
+    // In development, use local data file to avoid CORS issues
+    if (import.meta.env.DEV) {
+      try {
+        console.log('🔄 Loading local data (development mode)...');
+        const response = await fetch('/src/data/data.json');
+        if (response.ok) {
+          const localData = await response.json();
+          console.log('✅ Local data loaded successfully');
+          return localData;
+        }
+      } catch (error) {
+        console.error('❌ Failed to load local data:', error);
+      }
+    }
+
+    // In production, try blob storage first
+    try {
+      console.log('🔄 Fetching fresh data from blob storage...');
+      const data = await blobStorage.fetchData();
+      console.log('✅ Fresh data loaded from blob storage');
+      return data;
+    } catch (error) {
+      console.error('❌ Failed to fetch from blob storage:', error);
+      
+      // Try to fall back to local JSON file
+      try {
+        console.log('🔄 Attempting fallback to local JSON file...');
+        const response = await fetch('/src/data/data.json');
+        if (response.ok) {
+          const localData = await response.json();
+          console.log('✅ Using local fallback data');
+          return localData;
+        }
+      } catch (fallbackError) {
+        console.log('❌ Local fallback data not available');
+      }
+      
+      throw new Error(`Unable to load data: ${error.message}`);
+    }
   }
 
-  saveData(data) {
-    localStorage.setItem(this.storageKey, JSON.stringify(data));
+  /**
+   * Get data synchronously - throws error since we don't cache
+   */
+  getDataSync() {
+    throw new Error('Synchronous data access not available. Use async getData() instead.');
+  }
+
+  async saveData(data) {
+    // In development mode, we can't save to blob storage due to CORS
+    if (import.meta.env.DEV) {
+      console.log('💾 Simulating save in development mode...');
+      console.log('📊 Data that would be saved:', data);
+      console.log('✅ Save simulated successfully (development mode)');
+      return { success: true };
+    }
+
+    try {
+      console.log('💾 Saving data to blob storage...');
+      await blobStorage.saveData(data);
+      console.log('✅ Data saved successfully to blob storage');
+      return { success: true };
+    } catch (error) {
+      console.error('❌ Error saving data to blob storage:', error);
+      throw new Error(`Failed to save data to blob storage: ${error.message}`);
+    }
   }
 
   getConfig() {
@@ -39,28 +96,28 @@ class DataService {
     localStorage.setItem(this.configKey, JSON.stringify(configData));
   }
 
-  getCurrentWeek() {
-    const data = this.getData();
+  async getCurrentWeek() {
+    const data = await this.getData();
     return data.season.currentWeek;
   }
 
-  getTeams() {
-    const data = this.getData();
+  async getTeams() {
+    const data = await this.getData();
     return data.season.teams;
   }
 
-  getBakers() {
-    const data = this.getData();
+  async getBakers() {
+    const data = await this.getData();
     return data.season.bakers;
   }
 
-  getWeeks() {
-    const data = this.getData();
+  async getWeeks() {
+    const data = await this.getData();
     return data.season.weeks;
   }
 
-  getTeamScores(upToWeek = null) {
-    const data = this.getData();
+  async getTeamScores(upToWeek = null) {
+    const data = await this.getData();
     const teams = data.season.teams;
     const bakers = data.season.bakers;
     const weeks = data.season.weeks;
@@ -94,8 +151,8 @@ class DataService {
     }).sort((a, b) => b.totalScore - a.totalScore);
   }
 
-  getTeamWeekScore(teamId, weekNumber) {
-    const data = this.getData();
+  async getTeamWeekScore(teamId, weekNumber) {
+    const data = await this.getData();
     const team = data.season.teams.find(t => t.id === teamId);
     const week = data.season.weeks.find(w => w.weekNumber === weekNumber);
     
@@ -107,8 +164,8 @@ class DataService {
     }, 0);
   }
 
-  updateWeekScores(weekNumber, scores) {
-    const data = this.getData();
+  async updateWeekScores(weekNumber, scores) {
+    const data = await this.getData();
     const weekIndex = data.season.weeks.findIndex(w => w.weekNumber === weekNumber);
     
     if (weekIndex >= 0) {
@@ -121,65 +178,65 @@ class DataService {
       });
     }
     
-    this.saveData(data);
+    await this.saveData(data);
   }
 
-  setWeekActive(weekNumber, isActive) {
-    const data = this.getData();
+  async setWeekActive(weekNumber, isActive) {
+    const data = await this.getData();
     const week = data.season.weeks.find(w => w.weekNumber === weekNumber);
     if (week) {
       week.active = isActive;
-      this.saveData(data);
+      await this.saveData(data);
       return true;
     }
     return false;
   }
 
-  getActiveWeeks() {
-    const data = this.getData();
+  async getActiveWeeks() {
+    const data = await this.getData();
     return data.season.weeks.filter(w => w.active);
   }
 
-  eliminateBaker(bakerId, weekNumber) {
-    const data = this.getData();
+  async eliminateBaker(bakerId, weekNumber) {
+    const data = await this.getData();
     const baker = data.season.bakers.find(b => b.id === bakerId);
     if (baker) {
       baker.eliminated = true;
       baker.eliminatedWeek = weekNumber;
-      this.saveData(data);
+      await this.saveData(data);
     }
   }
 
-  setCurrentWeek(weekNumber) {
-    const data = this.getData();
+  async setCurrentWeek(weekNumber) {
+    const data = await this.getData();
     const weeks = data.season.weeks;
     const maxWeek = Math.max(...weeks.map(w => w.weekNumber));
     
     if (weekNumber >= 1 && weekNumber <= maxWeek) {
       data.season.currentWeek = weekNumber;
-      this.saveData(data);
+      await this.saveData(data);
       return true;
     }
     return false;
   }
 
-  getTotalWeeks() {
-    const data = this.getData();
+  async getTotalWeeks() {
+    const data = await this.getData();
     return data.season.weeks.length;
   }
 
-  getWeekByNumber(weekNumber) {
-    const data = this.getData();
+  async getWeekByNumber(weekNumber) {
+    const data = await this.getData();
     return data.season.weeks.find(w => w.weekNumber === weekNumber);
   }
 
-  updateWeekData(weekNumber, weekData) {
-    const data = this.getData();
+  async updateWeekData(weekNumber, weekData) {
+    const data = await this.getData();
     const weekIndex = data.season.weeks.findIndex(w => w.weekNumber === weekNumber);
     
     if (weekIndex >= 0) {
       data.season.weeks[weekIndex] = { ...data.season.weeks[weekIndex], ...weekData };
-      this.saveData(data);
+      await this.saveData(data);
       return true;
     }
     return false;

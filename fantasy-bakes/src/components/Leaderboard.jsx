@@ -8,14 +8,14 @@ function Leaderboard({ selectedWeek }) {
   const [currentWeekData, setCurrentWeekData] = useState(null);
 
   useEffect(() => {
-    const loadScores = () => {
+    const loadScores = async () => {
       try {
         setLoading(true);
-        const scores = dataService.getTeamScores(selectedWeek);
+        const scores = await dataService.getTeamScores(selectedWeek);
         setTeamScores(scores);
         
         // Get week data for score breakdown
-        const weekData = dataService.getWeekByNumber(selectedWeek);
+        const weekData = await dataService.getWeekByNumber(selectedWeek);
         setCurrentWeekData(weekData);
       } catch (error) {
         console.error('Error loading scores:', error);

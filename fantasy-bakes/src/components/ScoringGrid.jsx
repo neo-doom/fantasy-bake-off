@@ -9,13 +9,14 @@ function ScoringGrid({ selectedWeek }) {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
-  const loadWeekData = useCallback(() => {
+  const loadWeekData = useCallback(async () => {
     if (!selectedWeek) return;
     
-    const data = dataService.getData();
-    const activeBakers = data.season.bakers.filter(baker => 
-      !baker.eliminated || (baker.eliminatedWeek && baker.eliminatedWeek >= selectedWeek)
-    );
+    try {
+      const data = await dataService.getData();
+      const activeBakers = data.season.bakers.filter(baker => 
+        !baker.eliminated || (baker.eliminatedWeek && baker.eliminatedWeek >= selectedWeek)
+      );
     
     setBakers(activeBakers);
     
@@ -38,6 +39,9 @@ function ScoringGrid({ selectedWeek }) {
       });
       setScores(initialScores);
       setWeekNotes('');
+    }
+    } catch (error) {
+      console.error('Error loading week data:', error);
     }
   }, [selectedWeek]);
 
@@ -91,14 +95,14 @@ function ScoringGrid({ selectedWeek }) {
     setMessage('');
     
     try {
-      dataService.updateWeekScores(selectedWeek, scores);
+      await dataService.updateWeekScores(selectedWeek, scores);
       
-      const data = dataService.getData();
+      const data = await dataService.getData();
       const weekIndex = data.season.weeks.findIndex(w => w.weekNumber === selectedWeek);
       if (weekIndex >= 0) {
         data.season.weeks[weekIndex].notes = weekNotes;
       }
-      dataService.saveData(data);
+      await dataService.saveData(data);
       
       setMessage('Week scores saved successfully!');
       setTimeout(() => setMessage(''), 3000);

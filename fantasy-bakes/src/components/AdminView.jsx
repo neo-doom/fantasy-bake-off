@@ -11,17 +11,27 @@ function AdminView() {
   const [data, setData] = useState(null);
   const [selectedWeek, setSelectedWeek] = useState(null);
   const [totalWeeks, setTotalWeeks] = useState(0);
+  const [currentWeekData, setCurrentWeekData] = useState(null);
 
   useEffect(() => {
-    const authStatus = sessionStorage.getItem('fantasy-bakes-admin-auth');
-    if (authStatus === 'true') {
-      setIsAuthenticated(true);
-    }
+    const loadData = async () => {
+      const authStatus = sessionStorage.getItem('fantasy-bakes-admin-auth');
+      if (authStatus === 'true') {
+        setIsAuthenticated(true);
+      }
+      
+      try {
+        const gameData = await dataService.getData();
+        setData(gameData);
+        setSelectedWeek(gameData.season.currentWeek);
+        const totalWeeks = await dataService.getTotalWeeks();
+        setTotalWeeks(totalWeeks);
+      } catch (error) {
+        console.error('Error loading admin data:', error);
+      }
+    };
     
-    const gameData = dataService.getData();
-    setData(gameData);
-    setSelectedWeek(gameData.season.currentWeek);
-    setTotalWeeks(dataService.getTotalWeeks());
+    loadData();
   }, []);
 
   const handleLogin = (success) => {
@@ -36,13 +46,34 @@ function AdminView() {
     sessionStorage.removeItem('fantasy-bakes-admin-auth');
   };
 
-  const handleWeekChange = (weekNumber) => {
+  const handleWeekChange = async (weekNumber) => {
     setSelectedWeek(weekNumber);
+    try {
+      const weekData = await dataService.getWeekByNumber(weekNumber);
+      setCurrentWeekData(weekData);
+    } catch (error) {
+      console.error('Error loading week data:', error);
+    }
   };
 
-  const handleSetCurrentWeek = () => {
-    if (dataService.setCurrentWeek(selectedWeek)) {
-      const updatedData = dataService.getData();
+  useEffect(() => {
+    const loadCurrentWeekData = async () => {
+      if (selectedWeek) {
+        try {
+          const weekData = await dataService.getWeekByNumber(selectedWeek);
+          setCurrentWeekData(weekData);
+        } catch (error) {
+          console.error('Error loading current week data:', error);
+        }
+      }
+    };
+    
+    loadCurrentWeekData();
+  }, [selectedWeek]);
+
+  const handleSetCurrentWeek = async () => {
+    if (await dataService.setCurrentWeek(selectedWeek)) {
+      const updatedData = await dataService.getData();
       setData(updatedData);
     }
   };
@@ -54,17 +85,14 @@ function AdminView() {
     }
   };
 
-  const getCurrentWeekData = () => {
-    return dataService.getWeekByNumber(selectedWeek);
-  };
-
-  const toggleWeekActive = () => {
-    const weekData = getCurrentWeekData();
-    if (weekData) {
-      const newActiveStatus = !weekData.active;
-      if (dataService.setWeekActive(selectedWeek, newActiveStatus)) {
-        const updatedData = dataService.getData();
+  const toggleWeekActive = async () => {
+    if (currentWeekData) {
+      const newActiveStatus = !currentWeekData.active;
+      if (await dataService.setWeekActive(selectedWeek, newActiveStatus)) {
+        const updatedData = await dataService.getData();
         setData(updatedData);
+        const updatedWeekData = await dataService.getWeekByNumber(selectedWeek);
+        setCurrentWeekData(updatedWeekData);
       }
     }
   };
@@ -100,11 +128,11 @@ function AdminView() {
           </button>
           <div className="week-info">
             <span className="current-week">Week {selectedWeek}</span>
-            {getCurrentWeekData() && (
+            {currentWeekData && (
               <>
-                <span className="week-theme">{getCurrentWeekData().theme}</span>
-                <span className={`week-status ${getCurrentWeekData().active ? 'active' : 'inactive'}`}>
-                  {getCurrentWeekData().active ? '🟢 Active' : '⭕ Inactive'}
+                <span className="week-theme">{currentWeekData.theme}</span>
+                <span className={`week-status ${currentWeekData.active ? 'active' : 'inactive'}`}>
+                  {currentWeekData.active ? '🟢 Active' : '⭕ Inactive'}
                 </span>
               </>
             )}
@@ -124,14 +152,11 @@ function AdminView() {
             value={selectedWeek} 
             onChange={(e) => handleWeekChange(parseInt(e.target.value))}
           >
-            {Array.from({ length: totalWeeks }, (_, i) => i + 1).map(weekNum => {
-              const weekData = dataService.getWeekByNumber(weekNum);
-              return (
-                <option key={weekNum} value={weekNum}>
-                  Week {weekNum} - {weekData?.theme || 'Unknown Theme'}
-                </option>
-              );
-            })}
+            {Array.from({ length: totalWeeks }, (_, i) => i + 1).map(weekNum => (
+              <option key={weekNum} value={weekNum}>
+                Week {weekNum}
+              </option>
+            ))}
           </select>
           
           <button 
@@ -143,10 +168,10 @@ function AdminView() {
           </button>
           
           <button 
-            className={`toggle-active-btn ${getCurrentWeekData()?.active ? 'active' : 'inactive'}`}
+            className={`toggle-active-btn ${currentWeekData?.active ? 'active' : 'inactive'}`}
             onClick={toggleWeekActive}
           >
-            {getCurrentWeekData()?.active ? 'Deactivate Week' : 'Activate Week'}
+            {currentWeekData?.active ? 'Deactivate Week' : 'Activate Week'}
           </button>
         </div>
       </div>

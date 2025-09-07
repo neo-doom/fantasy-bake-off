@@ -7,15 +7,21 @@ function TeamManagement() {
   const [bakers, setBakers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const [currentWeek, setCurrentWeek] = useState(1);
 
   useEffect(() => {
     loadData();
   }, []);
 
-  const loadData = () => {
-    const data = dataService.getData();
-    setTeams(data.season.teams);
-    setBakers(data.season.bakers);
+  const loadData = async () => {
+    try {
+      const data = await dataService.getData();
+      setTeams(data.season.teams);
+      setBakers(data.season.bakers);
+      setCurrentWeek(data.season.currentWeek);
+    } catch (error) {
+      console.error('Error loading team data:', error);
+    }
   };
 
   const updateTeamName = (teamId, newName) => {
@@ -54,15 +60,15 @@ function TeamManagement() {
     ));
   };
 
-  const saveChanges = () => {
+  const saveChanges = async () => {
     setLoading(true);
     setMessage('');
 
     try {
-      const data = dataService.getData();
+      const data = await dataService.getData();
       data.season.teams = teams;
       data.season.bakers = bakers;
-      dataService.saveData(data);
+      await dataService.saveData(data);
       
       setMessage('Changes saved successfully!');
       setTimeout(() => setMessage(''), 3000);
@@ -77,8 +83,6 @@ function TeamManagement() {
   const getBakerTeam = (bakerId) => {
     return teams.find(team => team.bakers.includes(bakerId));
   };
-
-  const currentWeek = dataService.getCurrentWeek();
 
   return (
     <div className="team-management">
