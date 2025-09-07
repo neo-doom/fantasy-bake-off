@@ -138,9 +138,14 @@ class DataService {
         return weekTotal + weekScore;
       }, 0);
 
-      const currentWeekScore = upToWeek ? 
-        this.getTeamWeekScore(team.id, upToWeek) : 
-        this.getTeamWeekScore(team.id, data.season.currentWeek);
+      // Calculate current week score synchronously
+      const currentWeekNumber = upToWeek || data.season.currentWeek;
+      const currentWeek = weeks.find(w => w.weekNumber === currentWeekNumber);
+      const currentWeekScore = currentWeek ? 
+        team.bakers.reduce((total, bakerId) => {
+          const bakerScore = currentWeek.scores[bakerId];
+          return total + (bakerScore ? bakerScore.total : 0);
+        }, 0) : 0;
 
       return {
         ...team,
