@@ -1,0 +1,26 @@
+.app {
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--cream-bg);
+  font-family: 'Futura PT W01 Medium', sans-serif;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.5rem;
+  color: var(--text-dark);
+  font-weight: 500;
+}
+
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.5rem;
+  color: #b91c1c;
+  font-weight: 500;
+}

@@ -1,0 +1,76 @@
+:root {
+  font-family: 'Futura PT W01 Medium', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* New Color Palette */
+  --cream-bg: #f4f2ed;
+  --pink-accent: #c73d67;
+  --blue-header: #197b9f;
+  --white: #ffffff;
+  --text-dark: #2c2c2c;
+  --text-light: #666666;
+  --border-light: #e8e5e0;
+
+  color-scheme: light;
+  color: var(--text-dark);
+  background-color: var(--cream-bg);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: var(--pink-accent);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+a:hover {
+  color: var(--blue-header);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  width: 100%;
+}
+
+#root {
+  min-height: 100vh;
+  width: 100%;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 2px solid var(--pink-accent);
+  padding: 0.8em 1.5em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--pink-accent);
+  color: var(--white);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+button:hover {
+  background-color: var(--blue-header);
+  border-color: var(--blue-header);
+  transform: translateY(-1px);
+}
+button:focus,
+button:focus-visible {
+  outline: 2px solid var(--pink-accent);
+  outline-offset: 2px;
+}
+
+/* Remove dark/light mode media query - using consistent GBBO theme */

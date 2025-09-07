@@ -1,0 +1,12 @@
+{
+  "adminPassword": "password",
+  "appName": "Fantasy Bakes",
+  "scoringRules": {
+    "survived": 1,
+    "technicalWin": 2,
+    "starBaker": 3,
+    "handshake": 3,
+    "seasonWinner": 10,
+    "soggyBottom": -0.5
+  }
+}

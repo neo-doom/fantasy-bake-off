@@ -1,0 +1,660 @@
+{
+  "season": {
+    "name": "Season 2025",
+    "currentWeek": 6,
+    "isActive": true,
+    "teams": [
+      {
+        "id": "team1",
+        "name": "Soggy Bottoms",
+        "bakers": ["baker1", "baker2", "baker3"]
+      },
+      {
+        "id": "team2", 
+        "name": "Rising Stars",
+        "bakers": ["baker4", "baker5", "baker6"]
+      },
+      {
+        "id": "team3",
+        "name": "Flour Power",
+        "bakers": ["baker7", "baker8", "baker9"]
+      },
+      {
+        "id": "team4",
+        "name": "Batter Up",
+        "bakers": ["baker10", "baker11", "baker12"]
+      }
+    ],
+    "bakers": [
+      {
+        "id": "baker1",
+        "name": "Aaron Mountford-Myles",
+        "eliminated": false,
+        "eliminatedWeek": null
+      },
+      {
+        "id": "baker2",
+        "name": "Hassan",
+        "eliminated": false,
+        "eliminatedWeek": null
+      },
+      {
+        "id": "baker3",
+        "name": "Iain Ross",
+        "eliminated": false,
+        "eliminatedWeek": null
+      },
+      {
+        "id": "baker4",
+        "name": "Jasmine Mitchell",
+        "eliminated": true,
+        "eliminatedWeek": 2
+      },
+      {
+        "id": "baker5",
+        "name": "Jessika Trassel",
+        "eliminated": false,
+        "eliminatedWeek": null
+      },
+      {
+        "id": "baker6",
+        "name": "Lesley Holloway",
+        "eliminated": true,
+        "eliminatedWeek": 3
+      },
+      {
+        "id": "baker7",
+        "name": "Nadia Mercuri",
+        "eliminated": false,
+        "eliminatedWeek": null
+      },
+      {
+        "id": "baker8",
+        "name": "Nataliia Richardson",
+        "eliminated": true,
+        "eliminatedWeek": 4
+      },
+      {
+        "id": "baker9",
+        "name": "Pui Man",
+        "eliminated": false,
+        "eliminatedWeek": null
+      },
+      {
+        "id": "baker10",
+        "name": "Toby Littlewood",
+        "eliminated": true,
+        "eliminatedWeek": 5
+      },
+      {
+        "id": "baker11",
+        "name": "Tom",
+        "eliminated": true,
+        "eliminatedWeek": 6
+      },
+      {
+        "id": "baker12",
+        "name": "Leighton Morgan",
+        "eliminated": true,
+        "eliminatedWeek": 1
+      }
+    ],
+    "weeks": [
+      {
+        "weekNumber": 1,
+        "theme": "Cake Week",
+        "scores": {
+          "baker1": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": true,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 4
+          },
+          "baker2": {
+            "survived": true,
+            "technicalWin": true,
+            "starBaker": false,
+            "handshake": true,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 6
+          },
+          "baker3": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker4": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": true,
+            "manualAdjustment": 0,
+            "total": 0.5
+          },
+          "baker5": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker6": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": true,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 4
+          },
+          "baker7": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker8": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker9": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker10": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker11": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker12": {
+            "survived": false,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": true,
+            "manualAdjustment": 0,
+            "total": -0.5
+          }
+        },
+        "notes": "An exciting first week! Emma takes Star Baker while Ben becomes our first elimination. James impressed with both a technical win and handshake!"
+      },
+      {
+        "weekNumber": 2,
+        "theme": "Biscuit & Traybake Week",
+        "scores": {
+          "baker1": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": true,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 4
+          },
+          "baker2": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker3": {
+            "survived": true,
+            "technicalWin": true,
+            "starBaker": true,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 7
+          },
+          "baker4": {
+            "survived": false,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": true,
+            "manualAdjustment": 0,
+            "total": -0.5
+          },
+          "baker5": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker6": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker7": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker8": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker9": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker10": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker11": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          }
+        },
+        "notes": "Sarah Chen dominates week 2 with both Star Baker and Technical win! Michael Brown struggles with soggy bottoms and goes home."
+      },
+      {
+        "weekNumber": 3,
+        "theme": "Bread Week",
+        "scores": {
+          "baker1": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker2": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": true,
+            "handshake": true,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 7
+          },
+          "baker3": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker5": {
+            "survived": true,
+            "technicalWin": true,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 3
+          },
+          "baker6": {
+            "survived": false,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": true,
+            "manualAdjustment": 0,
+            "total": -0.5
+          },
+          "baker7": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker8": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker9": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker10": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker11": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          }
+        },
+        "notes": "James Wilson rises to the occasion in Bread Week with Star Baker and a handshake! Tom Anderson's bread falls flat and he leaves the tent."
+      },
+      {
+        "weekNumber": 4,
+        "theme": "Dessert Week",
+        "scores": {
+          "baker1": {
+            "survived": true,
+            "technicalWin": true,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 3
+          },
+          "baker2": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker3": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker5": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker7": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": true,
+            "handshake": true,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 7
+          },
+          "baker8": {
+            "survived": false,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": true,
+            "manualAdjustment": 0,
+            "total": -0.5
+          },
+          "baker9": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker10": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker11": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          }
+        },
+        "notes": "Rachel Green shines in Dessert Week earning Star Baker and a handshake! Emma wins the technical. David Miller's desserts don't impress and he's eliminated."
+      },
+      {
+        "weekNumber": 5,
+        "theme": "Pastry Week",
+        "scores": {
+          "baker1": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker2": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker3": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker5": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker7": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker9": {
+            "survived": true,
+            "technicalWin": true,
+            "starBaker": true,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 7
+          },
+          "baker10": {
+            "survived": false,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": true,
+            "manualAdjustment": 0,
+            "total": -0.5
+          },
+          "baker11": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          }
+        },
+        "notes": "Sophie Taylor has her breakout week with both Star Baker and Technical win! Oliver Jones struggles with pastry and is sent home."
+      },
+      {
+        "weekNumber": 6,
+        "theme": "Japanese Week",
+        "scores": {
+          "baker1": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": true,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 4
+          },
+          "baker2": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker3": {
+            "survived": true,
+            "technicalWin": true,
+            "starBaker": true,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 7
+          },
+          "baker5": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker7": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker9": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker11": {
+            "survived": false,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": true,
+            "manualAdjustment": 0,
+            "total": -0.5
+          }
+        },
+        "notes": "Sarah Chen claims her second Star Baker title with a technical win in Japanese Week! Emma earns a handshake for her creativity. Hannah White's unfamiliarity with Japanese flavors leads to her elimination."
+      }
+    ]
+  }
+}

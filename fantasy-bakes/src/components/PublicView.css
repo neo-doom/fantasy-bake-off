@@ -1,0 +1,110 @@
+.public-view {
+  min-height: 100vh;
+  padding: 3rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 4rem;
+  padding: 3rem 2rem;
+  background: var(--blue-header);
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(25, 123, 159, 0.15);
+}
+
+.header h1 {
+  font-size: 3rem;
+  margin: 0 0 1rem 0;
+  color: var(--white);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 2rem;
+  font-weight: 400;
+}
+
+.week-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.week-link {
+  background: rgba(255, 255, 255, 0.2) !important;
+  padding: 0.6rem 1rem !important;
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+  color: var(--white) !important;
+  font-size: 0.9rem !important;
+  font-family: inherit !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  pointer-events: auto !important;
+  position: relative !important;
+}
+
+
+.week-link:hover:not(.unplayed) {
+  background: var(--white) !important;
+  color: var(--blue-header) !important;
+  transform: translateY(-1px) !important;
+}
+
+.week-link.current {
+  background: var(--white) !important;
+  color: var(--blue-header) !important;
+  font-weight: 600 !important;
+}
+
+.week-link.selected {
+  background: var(--pink-accent) !important;
+  color: var(--white) !important;
+  border-color: var(--pink-accent) !important;
+  font-weight: 600 !important;
+}
+
+.week-link.unplayed {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+}
+
+.week-link.unplayed:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+  transform: none !important;
+}
+
+.main-content {
+  margin-bottom: 2rem;
+}
+
+.last-updated {
+  text-align: center;
+  color: var(--text-light);
+  margin-top: 3rem;
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.footer {
+  text-align: center;
+  padding: 2rem;
+  background: var(--white);
+  border-radius: 16px;
+  color: var(--text-dark);
+  font-size: 1rem;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+  margin-top: 3rem;
+}

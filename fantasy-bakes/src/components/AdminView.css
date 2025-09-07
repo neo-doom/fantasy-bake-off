@@ -1,0 +1,84 @@
+.admin-view {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--gbbo-forest) 0%, var(--gbbo-pine) 100%);
+  color: var(--gbbo-white);
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-bottom: 3px solid var(--gbbo-sage);
+}
+
+.admin-header h1 {
+  margin: 0;
+  color: var(--gbbo-sage);
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.admin-info {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.season-info {
+  background: rgba(89, 165, 134, 0.2);
+  padding: 0.7rem 1.2rem;
+  border-radius: 25px;
+  border: 2px solid var(--gbbo-sage);
+  color: var(--gbbo-sage);
+  font-weight: 600;
+}
+
+.logout-btn {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: #c0392b;
+}
+
+.admin-nav {
+  display: flex;
+  background: rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #98D8C8;
+}
+
+.nav-tab {
+  background: none;
+  border: none;
+  color: white;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.nav-tab:hover {
+  background: rgba(152, 216, 200, 0.1);
+  color: #98D8C8;
+}
+
+.nav-tab.active {
+  border-bottom-color: #98D8C8;
+  background: rgba(152, 216, 200, 0.2);
+  color: #98D8C8;
+}
+
+.admin-content {
+  padding: 2rem;
+}

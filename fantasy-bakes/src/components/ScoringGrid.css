@@ -1,0 +1,187 @@
+.scoring-grid {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 25px;
+  padding: 2rem;
+  color: var(--gbbo-charcoal);
+  border: 2px solid var(--gbbo-cream);
+}
+
+.scoring-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 3px solid var(--gbbo-sage);
+}
+
+.scoring-header h2 {
+  margin: 0;
+  color: var(--gbbo-forest);
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.advance-week-btn {
+  background: var(--gbbo-sage);
+  color: var(--gbbo-white);
+  border: 2px solid var(--gbbo-sage);
+  padding: 0.8rem 1.8rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.advance-week-btn:hover {
+  background: var(--gbbo-forest);
+  border-color: var(--gbbo-forest);
+  transform: translateY(-2px);
+}
+
+.message {
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.message.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.scoring-table {
+  margin-bottom: 2rem;
+  overflow-x: auto;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 200px repeat(5, 120px) 100px 80px;
+  gap: 1rem;
+  padding: 1rem;
+  background: #98D8C8;
+  border-radius: 8px;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns: 200px repeat(5, 120px) 100px 80px;
+  gap: 1rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  border: 1px solid #e0e0e0;
+  align-items: center;
+}
+
+.baker-name {
+  font-weight: bold;
+}
+
+.eliminated-badge {
+  display: block;
+  font-size: 0.8rem;
+  color: #e74c3c;
+  font-weight: normal;
+}
+
+.score-option {
+  display: flex;
+  justify-content: center;
+}
+
+.score-option input[type="checkbox"] {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.manual-adj input {
+  width: 80px;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.total-score {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #8B4B8C;
+}
+
+.week-notes {
+  margin-bottom: 2rem;
+}
+
+.week-notes label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #8B4B8C;
+}
+
+.week-notes textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-family: inherit;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.week-notes textarea:focus {
+  outline: none;
+  border-color: #98D8C8;
+}
+
+.scoring-actions {
+  text-align: center;
+}
+
+.save-btn {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.save-btn:hover:not(:disabled) {
+  background: #219a52;
+}
+
+.save-btn:disabled {
+  background: #95a5a6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 1200px) {
+  .scoring-grid {
+    overflow-x: auto;
+  }
+  
+  .table-header,
+  .table-row {
+    min-width: 900px;
+  }
+}
