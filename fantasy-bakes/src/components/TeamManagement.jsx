@@ -24,6 +24,12 @@ function TeamManagement() {
     ));
   };
 
+  const updateTeamMembers = (teamId, newMembers) => {
+    setTeams(prev => prev.map(team => 
+      team.id === teamId ? { ...team, members: newMembers } : team
+    ));
+  };
+
   const updateBakerName = (bakerId, newName) => {
     setBakers(prev => prev.map(baker => 
       baker.id === bakerId ? { ...baker, name: newName } : baker
@@ -97,6 +103,14 @@ function TeamManagement() {
                   value={team.name}
                   onChange={(e) => updateTeamName(team.id, e.target.value)}
                   className="team-name-input"
+                  placeholder="Team Name"
+                />
+                <input
+                  type="text"
+                  value={team.members || ''}
+                  onChange={(e) => updateTeamMembers(team.id, e.target.value)}
+                  className="team-members-input"
+                  placeholder="Team Members (e.g., Bob & Julie)"
                 />
               </div>
               

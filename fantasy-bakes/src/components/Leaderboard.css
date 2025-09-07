@@ -1,206 +1,357 @@
-.leaderboard {
-  background: var(--white);
-  border-radius: 16px;
-  padding: 3rem 2rem;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
-  margin-bottom: 2rem;
-  border: 1px solid var(--border-light);
+/* Clean, Simple Leaderboard Styles - All Black Text */
+.leaderboard-new {
+  padding: 0 2rem 2rem 2rem;
+  background: #f5f5f5;
+  min-height: 100vh;
+  color: black;
 }
 
-.leaderboard h2 {
+/* Week Info as Simple Text */
+.week-info-text {
+  margin-bottom: 1rem;
   text-align: center;
-  color: var(--text-dark);
+}
+
+.week-theme-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #59a584;
+  margin-bottom: 0.3rem;
+}
+
+.week-notes-text {
+  font-size: 0.9rem;
+  color: #666;
+  font-style: italic;
+}
+
+.leaderboard-new h2 {
+  text-align: center;
+  color: black;
+  font-size: 2.5rem;
+  font-weight: 700;
   margin-bottom: 3rem;
-  font-size: 2rem;
-  font-weight: 500;
-  letter-spacing: -0.02em;
 }
 
-.standings-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+.team-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-.team-card {
-  background: var(--white);
+/* Team Card Layout */
+.team-card-new {
+  background: white;
   border-radius: 12px;
-  border: 1px solid var(--border-light);
-  transition: all 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  border: 2px solid #ddd;
+  color: black;
 }
 
-.team-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  border-color: var(--pink-accent);
+.team-card-new.leader {
+  border-color: #59a584;
+  box-shadow: 0 4px 12px rgba(89, 165, 132, 0.3);
 }
 
-.team-card.leader {
-  background: linear-gradient(135deg, var(--pink-accent) 0%, #d64576 100%);
-  border-color: var(--pink-accent);
-  color: var(--white);
-}
-
-.team-header {
+/* Team Header - Single Line Layout */
+.team-card-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 1.5rem;
-  gap: 1rem;
+  background: #f8f9fa;
+  border-bottom: 1px solid #ddd;
+  color: black;
+  gap: 1.5rem;
 }
 
-.position-info {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+.team-card-new.leader .team-card-header {
+  background: #e8f5f0;
+  border-bottom-color: #59a584;
+}
+
+.team-rank {
+  flex-shrink: 0;
   min-width: 60px;
 }
 
-.team-info {
+.rank-number {
+  font-size: 2rem;
+  font-weight: 900;
+  color: black;
+  line-height: 1;
+}
+
+.team-info-section {
   flex: 1;
-}
-
-.scores {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.position-number {
-  font-size: 1.4rem;
-  font-weight: 500;
-  color: var(--text-dark);
-}
-
-.team-card.leader .position-number {
-  color: var(--white);
-}
-
-.crown {
-  font-size: 1.2rem;
+  min-width: 0;
 }
 
 .team-name {
   margin: 0;
-  color: var(--text-dark);
-  font-size: 1.2rem;
-  font-weight: 500;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: black;
+  line-height: 1.2;
 }
 
-.team-card.leader .team-name {
-  color: var(--white);
+.team-members {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #666;
+  font-style: italic;
+  line-height: 1.2;
 }
 
-.bakers-list {
+.team-scores-inline {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  padding: 0 1.5rem 1.5rem 1.5rem;
+  gap: 2rem;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.score-item {
+  text-align: center;
+  min-width: 80px;
+}
+
+.score-label {
+  display: block;
+  font-size: 0.7rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+  line-height: 1;
+}
+
+.score-value {
+  display: block;
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: black;
+  line-height: 1;
+}
+
+.total-score-item .score-value {
+  font-size: 1.6rem;
+  color: #59a584;
+}
+
+/* Bakers Table - Simple and Clean */
+.bakers-table {
+  background: white;
+  overflow-x: auto;
+  color: black;
+}
+
+.scores-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: black;
+}
+
+.scores-table thead {
+  background: #f8f9fa;
+  border-bottom: 2px solid #ddd;
+}
+
+.scores-table th {
+  padding: 1rem 0.75rem;
+  text-align: center;
+  font-weight: 600;
+  color: black;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  border-bottom: 1px solid #ddd;
+}
+
+.scores-table th.th-baker {
+  text-align: left;
+  width: 35%;
+  min-width: 200px;
+}
+
+.scores-table th.th-survived,
+.scores-table th.th-technical,
+.scores-table th.th-star,
+.scores-table th.th-handshake,
+.scores-table th.th-soggy {
+  width: 10%;
+  min-width: 80px;
+}
+
+.scores-table th.th-total {
+  width: 12%;
+  min-width: 90px;
+}
+
+.scores-table tbody tr {
+  border-bottom: 1px solid #eee;
+}
+
+.scores-table tbody tr:hover {
+  background: #f9f9f9;
+}
+
+.scores-table tbody tr.eliminated {
+  opacity: 0.6;
+}
+
+.scores-table td {
+  padding: 1rem 0.75rem;
+  vertical-align: middle;
+  color: black;
+}
+
+.td-baker {
+  text-align: left;
+}
+
+.td-center {
+  text-align: center;
+}
+
+.baker-cell {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.baker-photo {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ddd;
+  flex-shrink: 0;
+}
+
+.baker-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 
 .baker-name {
-  padding: 0.4rem 0.8rem;
-  background: var(--cream-bg);
-  border-radius: 6px;
-  font-size: 0.85rem;
-  color: var(--text-dark);
-  font-weight: 400;
-  border: 1px solid var(--border-light);
-  white-space: nowrap;
+  font-weight: 600;
+  color: black;
+  font-size: 1rem;
 }
 
-.team-card.leader .baker-name {
-  background: rgba(255, 255, 255, 0.2);
-  color: var(--white);
-  border-color: rgba(255, 255, 255, 0.3);
+.eliminated-badge {
+  font-size: 0.7rem;
+  color: #dc3545;
+  font-style: italic;
+  margin-top: 0.2rem;
 }
 
-.baker-name.eliminated {
-  background: #f8f8f8;
-  opacity: 0.6;
-  text-decoration: line-through;
-  color: var(--text-light);
+.score-indicator {
+  font-size: 1.2rem;
+  color: black;
 }
 
-.week-score {
-  background: var(--pink-accent);
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-weight: 500;
-  color: var(--white);
-  font-size: 0.9rem;
+.score-indicator.survived {
+  color: #28a745;
+  font-weight: bold;
 }
 
-.team-card.leader .week-score {
-  background: rgba(255, 255, 255, 0.3);
-  color: var(--white);
+.score-indicator.soggy {
+  color: #fd7e14;
 }
 
 .total-score {
-  font-size: 1.6rem;
-  font-weight: 500;
-  color: var(--text-dark);
+  font-weight: 700;
+  color: black;
+  font-size: 1.1rem;
 }
 
-.team-card.leader .total-score {
-  color: var(--white);
+/* Loading State */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  font-size: 1.2rem;
+  color: black;
 }
 
+/* Mobile Responsive */
 @media (max-width: 768px) {
-  .public-view {
-    padding: 2rem 1rem;
+  .team-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 1rem;
   }
-  
-  .header {
-    padding: 2rem 1.5rem;
-    margin-bottom: 3rem;
+
+  .leaderboard-new {
+    padding: 1rem;
   }
-  
-  .header h1 {
-    font-size: 2.2rem;
-  }
-  
-  .week-navigation {
-    gap: 0.3rem;
-  }
-  
-  .week-link {
-    padding: 0.5rem 0.8rem;
-    font-size: 0.8rem;
-  }
-  
-  .week-link.current {
-    font-size: 0.8rem;
-  }
-  
-  .leaderboard {
-    padding: 2rem 1rem;
-  }
-  
-  .leaderboard h2 {
-    font-size: 1.6rem;
-  }
-  
-  .team-header {
+
+  .team-card-header {
     flex-direction: column;
+    align-items: center;
     text-align: center;
     gap: 1rem;
   }
-  
-  .position-info {
-    justify-content: center;
+
+  .team-info-section {
+    text-align: center;
+    flex: none;
   }
-  
-  .scores {
-    justify-content: center;
+
+  .team-scores-inline {
+    gap: 1.5rem;
   }
-  
-  .bakers-list {
-    justify-content: center;
-    padding: 0 1rem 1.5rem 1rem;
+
+  .score-item {
+    min-width: 60px;
   }
-  
-  .total-score {
-    font-size: 1.4rem;
+
+  .score-label {
+    font-size: 0.65rem;
+  }
+
+  .score-value {
+    font-size: 1.1rem;
+  }
+
+  .total-score-item .score-value {
+    font-size: 1.3rem;
+  }
+
+  .scores-table th,
+  .scores-table td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .baker-photo {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media (max-width: 480px) {
+  .scores-table th {
+    font-size: 0.75rem;
+    padding: 0.5rem 0.3rem;
+  }
+
+  .scores-table td {
+    padding: 0.5rem 0.3rem;
+  }
+
+  .baker-photo {
+    width: 30px;
+    height: 30px;
+  }
+
+  .baker-name {
+    font-size: 0.9rem;
   }
 }

@@ -41,6 +41,9 @@
 
 .team-header {
   margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .team-name-input {
@@ -55,6 +58,22 @@
 }
 
 .team-name-input:focus {
+  outline: none;
+  border-color: #98D8C8;
+}
+
+.team-members-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: #666;
+  box-sizing: border-box;
+}
+
+.team-members-input:focus {
   outline: none;
   border-color: #98D8C8;
 }

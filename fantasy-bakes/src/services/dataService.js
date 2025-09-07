@@ -12,9 +12,9 @@ class DataService {
     const existingData = localStorage.getItem(this.storageKey);
     const existingConfig = localStorage.getItem(this.configKey);
     
-    if (!existingData) {
-      localStorage.setItem(this.storageKey, JSON.stringify(sampleData));
-    }
+    // Force update to latest sample data for development
+    // Remove this in production
+    localStorage.setItem(this.storageKey, JSON.stringify(sampleData));
     
     if (!existingConfig) {
       localStorage.setItem(this.configKey, JSON.stringify(config));
@@ -124,10 +124,20 @@ class DataService {
     this.saveData(data);
   }
 
-  advanceWeek() {
+  setWeekActive(weekNumber, isActive) {
     const data = this.getData();
-    data.season.currentWeek += 1;
-    this.saveData(data);
+    const week = data.season.weeks.find(w => w.weekNumber === weekNumber);
+    if (week) {
+      week.active = isActive;
+      this.saveData(data);
+      return true;
+    }
+    return false;
+  }
+
+  getActiveWeeks() {
+    const data = this.getData();
+    return data.season.weeks.filter(w => w.active);
   }
 
   eliminateBaker(bakerId, weekNumber) {
@@ -138,6 +148,41 @@ class DataService {
       baker.eliminatedWeek = weekNumber;
       this.saveData(data);
     }
+  }
+
+  setCurrentWeek(weekNumber) {
+    const data = this.getData();
+    const weeks = data.season.weeks;
+    const maxWeek = Math.max(...weeks.map(w => w.weekNumber));
+    
+    if (weekNumber >= 1 && weekNumber <= maxWeek) {
+      data.season.currentWeek = weekNumber;
+      this.saveData(data);
+      return true;
+    }
+    return false;
+  }
+
+  getTotalWeeks() {
+    const data = this.getData();
+    return data.season.weeks.length;
+  }
+
+  getWeekByNumber(weekNumber) {
+    const data = this.getData();
+    return data.season.weeks.find(w => w.weekNumber === weekNumber);
+  }
+
+  updateWeekData(weekNumber, weekData) {
+    const data = this.getData();
+    const weekIndex = data.season.weeks.findIndex(w => w.weekNumber === weekNumber);
+    
+    if (weekIndex >= 0) {
+      data.season.weeks[weekIndex] = { ...data.season.weeks[weekIndex], ...weekData };
+      this.saveData(data);
+      return true;
+    }
+    return false;
   }
 }
 

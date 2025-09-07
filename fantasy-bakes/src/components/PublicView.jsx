@@ -6,13 +6,21 @@ import './PublicView.css';
 function PublicView() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [selectedWeek, setSelectedWeek] = useState(6); // Default to current week
+  const [selectedWeek, setSelectedWeek] = useState(null);
 
   useEffect(() => {
     const loadData = () => {
       try {
         const gameData = dataService.getData();
         setData(gameData);
+        
+        // Set default selected week to the current week or first active week
+        const activeWeeks = gameData.season.weeks.filter(w => w.active);
+        if (activeWeeks.length > 0) {
+          const currentWeek = activeWeeks.find(w => w.weekNumber === gameData.season.currentWeek);
+          const defaultWeek = currentWeek || activeWeeks.sort((a, b) => a.weekNumber - b.weekNumber)[0];
+          setSelectedWeek(defaultWeek.weekNumber);
+        }
       } catch (error) {
         console.error('Error loading data:', error);
       } finally {
@@ -34,26 +42,27 @@ function PublicView() {
   return (
     <div className="public-view">
       <header className="header">
-        <h1>🧁 Fantasy Bakes</h1>
+        <h1>Fantasy Bakes Leaderboard</h1>
         <p className="subtitle">Great British Bake Off Fantasy League</p>
         <nav className="week-navigation">
-          {Array.from({ length: 10 }, (_, i) => {
-            const weekNumber = i + 1;
-            const isPlayed = data.season.weeks.some(week => week.weekNumber === weekNumber);
-            const isCurrent = weekNumber === data.season.currentWeek;
-            const isSelected = weekNumber === selectedWeek;
-            
-            return (
-              <button 
-                key={weekNumber}
-                onClick={() => isPlayed && setSelectedWeek(weekNumber)}
-                className={`week-link ${!isPlayed ? 'unplayed' : ''} ${isCurrent ? 'current' : ''} ${isSelected ? 'selected' : ''}`}
-                disabled={!isPlayed}
-              >
-                Week {weekNumber}
-              </button>
-            );
-          })}
+          {data.season.weeks
+            .filter(week => week.active)
+            .sort((a, b) => a.weekNumber - b.weekNumber)
+            .map(week => {
+              const weekNumber = week.weekNumber;
+              const isCurrent = weekNumber === data.season.currentWeek;
+              const isSelected = weekNumber === selectedWeek;
+              
+              return (
+                <button 
+                  key={weekNumber}
+                  onClick={() => setSelectedWeek(weekNumber)}
+                  className={`week-link ${isCurrent ? 'current' : ''} ${isSelected ? 'selected' : ''}`}
+                >
+                  Week {weekNumber}
+                </button>
+              );
+            })}
         </nav>
       </header>
 

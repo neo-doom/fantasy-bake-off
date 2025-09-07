@@ -2,8 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import dataService from '../services/dataService';
 import './ScoringGrid.css';
 
-function ScoringGrid() {
-  const [currentWeek, setCurrentWeek] = useState(1);
+function ScoringGrid({ selectedWeek }) {
   const [bakers, setBakers] = useState([]);
   const [scores, setScores] = useState({});
   const [weekNotes, setWeekNotes] = useState('');
@@ -11,15 +10,16 @@ function ScoringGrid() {
   const [message, setMessage] = useState('');
 
   const loadWeekData = useCallback(() => {
+    if (!selectedWeek) return;
+    
     const data = dataService.getData();
     const activeBakers = data.season.bakers.filter(baker => 
-      !baker.eliminated || (baker.eliminatedWeek && baker.eliminatedWeek >= currentWeek)
+      !baker.eliminated || (baker.eliminatedWeek && baker.eliminatedWeek >= selectedWeek)
     );
     
     setBakers(activeBakers);
-    setCurrentWeek(data.season.currentWeek);
     
-    const existingWeek = data.season.weeks.find(w => w.weekNumber === currentWeek);
+    const existingWeek = data.season.weeks.find(w => w.weekNumber === selectedWeek);
     if (existingWeek) {
       setScores(existingWeek.scores || {});
       setWeekNotes(existingWeek.notes || '');
@@ -39,7 +39,7 @@ function ScoringGrid() {
       setScores(initialScores);
       setWeekNotes('');
     }
-  }, [currentWeek]);
+  }, [selectedWeek]);
 
   useEffect(() => {
     loadWeekData();
@@ -91,10 +91,10 @@ function ScoringGrid() {
     setMessage('');
     
     try {
-      dataService.updateWeekScores(currentWeek, scores);
+      dataService.updateWeekScores(selectedWeek, scores);
       
       const data = dataService.getData();
-      const weekIndex = data.season.weeks.findIndex(w => w.weekNumber === currentWeek);
+      const weekIndex = data.season.weeks.findIndex(w => w.weekNumber === selectedWeek);
       if (weekIndex >= 0) {
         data.season.weeks[weekIndex].notes = weekNotes;
       }
@@ -110,26 +110,11 @@ function ScoringGrid() {
     }
   };
 
-  const advanceToNextWeek = () => {
-    if (window.confirm('Are you sure you want to advance to the next week? This will increment the current week number.')) {
-      dataService.advanceWeek();
-      loadWeekData();
-      setMessage('Advanced to next week!');
-    }
-  };
 
   return (
     <div className="scoring-grid">
       <div className="scoring-header">
-        <h2>📊 Week {currentWeek} Scoring</h2>
-        <div className="week-controls">
-          <button 
-            className="advance-week-btn"
-            onClick={advanceToNextWeek}
-          >
-            Advance to Week {currentWeek + 1}
-          </button>
-        </div>
+        <h2>📊 Week {selectedWeek} Scoring</h2>
       </div>
 
       {message && (
