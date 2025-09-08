@@ -366,21 +366,6 @@
     table-layout: fixed !important;
   }
 
-  .bakers-table::after {
-    content: "← Swipe to see all scores →";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(89, 165, 132, 0.1);
-    color: #59a584;
-    text-align: center;
-    padding: 0.5rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    border-top: 1px solid rgba(89, 165, 132, 0.2);
-    pointer-events: none;
-  }
 
   .scores-table th,
   .scores-table td {
@@ -428,8 +413,4 @@
     min-width: 100px;
   }
 
-  .bakers-table::after {
-    font-size: 0.7rem;
-    padding: 0.4rem;
-  }
 }
