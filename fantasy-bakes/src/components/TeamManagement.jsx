@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import dataService from '../services/dataService';
 import './TeamManagement.css';
 
-function TeamManagement() {
+function TeamManagement({ selectedWeek }) {
   const [teams, setTeams] = useState([]);
   const [bakers, setBakers] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -42,11 +42,11 @@ function TeamManagement() {
     ));
   };
 
-  const eliminateBaker = (bakerId, weekNumber) => {
-    if (window.confirm('Are you sure you want to eliminate this baker?')) {
+  const eliminateBaker = (bakerId) => {
+    if (window.confirm(`Are you sure you want to eliminate this baker in Week ${selectedWeek}?`)) {
       setBakers(prev => prev.map(baker => 
         baker.id === bakerId 
-          ? { ...baker, eliminated: true, eliminatedWeek: weekNumber }
+          ? { ...baker, eliminated: true, eliminatedWeek: selectedWeek }
           : baker
       ));
     }
@@ -147,7 +147,7 @@ function TeamManagement() {
                       ) : (
                         <button 
                           className="eliminate-btn"
-                          onClick={() => eliminateBaker(bakerId, currentWeek)}
+                          onClick={() => eliminateBaker(bakerId)}
                         >
                           Eliminate
                         </button>
@@ -210,7 +210,7 @@ function TeamManagement() {
                   ) : (
                     <button 
                       className="eliminate-btn"
-                      onClick={() => eliminateBaker(baker.id, currentWeek)}
+                      onClick={() => eliminateBaker(baker.id)}
                     >
                       Eliminate
                     </button>

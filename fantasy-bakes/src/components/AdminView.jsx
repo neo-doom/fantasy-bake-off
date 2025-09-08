@@ -193,7 +193,7 @@ function AdminView() {
 
       <main className="admin-content">
         {activeTab === 'scoring' && <ScoringGrid selectedWeek={selectedWeek} />}
-        {activeTab === 'teams' && <TeamManagement />}
+        {activeTab === 'teams' && <TeamManagement selectedWeek={selectedWeek} />}
       </main>
     </div>
   );
