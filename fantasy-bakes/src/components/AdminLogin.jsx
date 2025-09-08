@@ -7,15 +7,22 @@ function AdminLogin({ onLogin }) {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
 
     try {
-      const config = dataService.getConfig();
-      
-      if (password === config.adminPassword) {
+      // Check admin password via API route for security
+      const response = await fetch('/api/admin/verify', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ password }),
+      });
+
+      if (response.ok) {
         onLogin(true);
       } else {
         setError('Incorrect password');
