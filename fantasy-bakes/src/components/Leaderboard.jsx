@@ -27,24 +27,17 @@ function Leaderboard({ selectedWeek }) {
     // Initial load
     loadScores();
 
-    // Listen for localStorage changes to refresh data
-    const handleStorageChange = (e) => {
-      if (e.key === 'fantasy-bakes-data') {
-        loadScores();
-      }
+    // Listen for data updates from dataService
+    const handleDataUpdate = () => {
+      console.log('📡 Leaderboard received data update event');
+      // Reload scores with fresh data
+      loadScores();
     };
 
-    // Listen for storage events (from other tabs/windows)
-    window.addEventListener('storage', handleStorageChange);
-    
-    // Also poll for data changes every 3 seconds
-    const pollInterval = setInterval(() => {
-      loadScores();
-    }, 3000);
+    window.addEventListener('fantasy-bakes-data-updated', handleDataUpdate);
 
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      clearInterval(pollInterval);
+      window.removeEventListener('fantasy-bakes-data-updated', handleDataUpdate);
     };
   }, [selectedWeek]);
 

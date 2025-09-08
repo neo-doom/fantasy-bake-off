@@ -4,6 +4,9 @@ import blobStorage from './blobStorage.js';
 class DataService {
   constructor() {
     this.configKey = 'fantasy-bakes-config';
+    this.dataKey = 'fantasy-bakes-data';
+    this.timestampKey = 'fantasy-bakes-timestamp';
+    this.sessionKey = 'fantasy-bakes-session';
     this.initializeData();
   }
 
@@ -16,9 +19,57 @@ class DataService {
   }
 
   /**
-   * Get data - always fetch fresh from blob storage
+   * Check if this is a new browser session (page refresh)
    */
-  async getData() {
+  isNewSession() {
+    const currentSession = sessionStorage.getItem(this.sessionKey);
+    if (!currentSession) {
+      sessionStorage.setItem(this.sessionKey, Date.now().toString());
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Get cached data from localStorage
+   */
+  getCachedData() {
+    try {
+      const cachedData = localStorage.getItem(this.dataKey);
+      const timestamp = localStorage.getItem(this.timestampKey);
+      
+      if (cachedData && timestamp) {
+        console.log('📱 Using cached data from localStorage');
+        return JSON.parse(cachedData);
+      }
+    } catch (error) {
+      console.warn('Failed to parse cached data:', error);
+    }
+    return null;
+  }
+
+  /**
+   * Cache data in localStorage with timestamp
+   */
+  setCachedData(data) {
+    try {
+      localStorage.setItem(this.dataKey, JSON.stringify(data));
+      localStorage.setItem(this.timestampKey, Date.now().toString());
+      console.log('💾 Data cached in localStorage');
+      
+      // Dispatch custom event for components to listen to
+      window.dispatchEvent(new CustomEvent('fantasy-bakes-data-updated', {
+        detail: { data }
+      }));
+    } catch (error) {
+      console.error('Failed to cache data:', error);
+    }
+  }
+
+  /**
+   * Fetch fresh data from remote source
+   */
+  async fetchFreshData() {
     // In development, use local data file to avoid CORS issues
     if (import.meta.env.DEV) {
       try {
@@ -61,10 +112,51 @@ class DataService {
   }
 
   /**
-   * Get data synchronously - throws error since we don't cache
+   * Smart data loading: cache-first with refresh detection
+   */
+  async getData() {
+    const isNewSession = this.isNewSession();
+    
+    // On new session (page refresh), always fetch fresh data
+    if (isNewSession) {
+      console.log('🔄 New session detected, fetching fresh data...');
+      try {
+        const freshData = await this.fetchFreshData();
+        this.setCachedData(freshData);
+        return freshData;
+      } catch (error) {
+        // Fallback to cached data if fresh fetch fails
+        const cachedData = this.getCachedData();
+        if (cachedData) {
+          console.log('⚠️  Using cached data as fallback');
+          return cachedData;
+        }
+        throw error;
+      }
+    }
+    
+    // For navigation within same session, use cached data
+    const cachedData = this.getCachedData();
+    if (cachedData) {
+      return cachedData;
+    }
+    
+    // No cached data available, fetch fresh
+    console.log('📭 No cached data found, fetching fresh...');
+    const freshData = await this.fetchFreshData();
+    this.setCachedData(freshData);
+    return freshData;
+  }
+
+  /**
+   * Get data synchronously from cache
    */
   getDataSync() {
-    throw new Error('Synchronous data access not available. Use async getData() instead.');
+    const cachedData = this.getCachedData();
+    if (cachedData) {
+      return cachedData;
+    }
+    throw new Error('No cached data available. Use async getData() to fetch fresh data.');
   }
 
   async saveData(data) {
@@ -72,6 +164,8 @@ class DataService {
     if (import.meta.env.DEV) {
       console.log('💾 Simulating save in development mode...');
       console.log('📊 Data that would be saved:', data);
+      // Update cache even in development mode for consistency
+      this.setCachedData(data);
       console.log('✅ Save simulated successfully (development mode)');
       return { success: true };
     }
@@ -80,6 +174,10 @@ class DataService {
       console.log('💾 Saving data to blob storage...');
       await blobStorage.saveData(data);
       console.log('✅ Data saved successfully to blob storage');
+      
+      // Update local cache with new data
+      this.setCachedData(data);
+      
       return { success: true };
     } catch (error) {
       console.error('❌ Error saving data to blob storage:', error);

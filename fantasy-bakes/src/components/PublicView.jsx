@@ -15,11 +15,13 @@ function PublicView() {
         setData(gameData);
         
         // Set default selected week to the current week or first active week
-        const activeWeeks = gameData.season.weeks.filter(w => w.active);
-        if (activeWeeks.length > 0) {
-          const currentWeek = activeWeeks.find(w => w.weekNumber === gameData.season.currentWeek);
-          const defaultWeek = currentWeek || activeWeeks.sort((a, b) => a.weekNumber - b.weekNumber)[0];
-          setSelectedWeek(defaultWeek.weekNumber);
+        if (gameData && gameData.season && gameData.season.weeks) {
+          const activeWeeks = gameData.season.weeks.filter(w => w.active);
+          if (activeWeeks.length > 0 && !selectedWeek) {
+            const currentWeek = activeWeeks.find(w => w.weekNumber === gameData.season.currentWeek);
+            const defaultWeek = currentWeek || activeWeeks.sort((a, b) => a.weekNumber - b.weekNumber)[0];
+            setSelectedWeek(defaultWeek.weekNumber);
+          }
         }
       } catch (error) {
         console.error('Error loading data:', error);
@@ -28,44 +30,32 @@ function PublicView() {
       }
     };
 
+    // Initial load
     loadData();
 
-    // Listen for data changes from admin console
-    const handleStorageChange = (e) => {
-      if (e.key === 'fantasy-bakes-data') {
-        loadData();
+    // Listen for data updates from dataService
+    const handleDataUpdate = (event) => {
+      console.log('📡 Received data update event');
+      const updatedData = event.detail.data;
+      setData(updatedData);
+      
+      // Update selected week if the current one is no longer active
+      if (updatedData && updatedData.season && updatedData.season.weeks) {
+        const activeWeeks = updatedData.season.weeks.filter(w => w.active);
+        if (activeWeeks.length > 0 && selectedWeek && !activeWeeks.find(w => w.weekNumber === selectedWeek)) {
+          const currentWeek = activeWeeks.find(w => w.weekNumber === updatedData.season.currentWeek);
+          const defaultWeek = currentWeek || activeWeeks.sort((a, b) => a.weekNumber - b.weekNumber)[0];
+          setSelectedWeek(defaultWeek.weekNumber);
+        }
       }
     };
 
-    // Listen for storage events (from other tabs/windows)
-    window.addEventListener('storage', handleStorageChange);
-    
-    // Also poll for data changes every 30 seconds to check blob storage
-    const pollInterval = setInterval(async () => {
-      try {
-        const freshData = await dataService.getData();
-        // Simple comparison - if the stringified data changed, update
-        if (data && JSON.stringify(freshData) !== JSON.stringify(data)) {
-          setData(freshData);
-          
-          // Update selected week if needed
-          const activeWeeks = freshData.season.weeks.filter(w => w.active);
-          if (activeWeeks.length > 0 && !activeWeeks.find(w => w.weekNumber === selectedWeek)) {
-            const currentWeek = activeWeeks.find(w => w.weekNumber === freshData.season.currentWeek);
-            const defaultWeek = currentWeek || activeWeeks.sort((a, b) => a.weekNumber - b.weekNumber)[0];
-            setSelectedWeek(defaultWeek.weekNumber);
-          }
-        }
-      } catch (error) {
-        console.warn('Failed to poll for data updates:', error);
-      }
-    }, 30000);
+    window.addEventListener('fantasy-bakes-data-updated', handleDataUpdate);
 
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      clearInterval(pollInterval);
+      window.removeEventListener('fantasy-bakes-data-updated', handleDataUpdate);
     };
-  }, []);
+  }, [selectedWeek]);
 
   if (loading) {
     return <div className="loading">Loading Fantasy Bakes...</div>;
