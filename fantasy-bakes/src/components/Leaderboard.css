@@ -147,12 +147,36 @@
   background: white;
   overflow-x: auto;
   color: black;
+  /* Enhanced mobile scrolling */
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #59a584 #f8f9fa;
+}
+
+.bakers-table::-webkit-scrollbar {
+  height: 8px;
+}
+
+.bakers-table::-webkit-scrollbar-track {
+  background: #f8f9fa;
+  border-radius: 4px;
+}
+
+.bakers-table::-webkit-scrollbar-thumb {
+  background: #59a584;
+  border-radius: 4px;
+}
+
+.bakers-table::-webkit-scrollbar-thumb:hover {
+  background: #4a8f6e;
 }
 
 .scores-table {
   width: 100%;
   border-collapse: collapse;
   color: black;
+  /* Ensure minimum width to trigger horizontal scroll on mobile */
+  min-width: 700px;
 }
 
 .scores-table thead {
@@ -324,26 +348,59 @@
     font-size: 1.3rem;
   }
 
+  /* Enhanced mobile table styling */
+  .bakers-table {
+    position: relative;
+    margin: 0 -1rem; /* Extend to edges on mobile */
+    border-radius: 0;
+  }
+
+  .bakers-table::after {
+    content: "← Swipe to see all scores →";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(89, 165, 132, 0.1);
+    color: #59a584;
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-top: 1px solid rgba(89, 165, 132, 0.2);
+    pointer-events: none;
+  }
+
   .scores-table th,
   .scores-table td {
     padding: 0.75rem 0.5rem;
     font-size: 0.85rem;
+    white-space: nowrap;
   }
 
   .baker-photo {
     width: 35px;
     height: 35px;
   }
+
+  /* Ensure baker names don't wrap */
+  .baker-info {
+    min-width: 120px;
+  }
 }
 
 @media (max-width: 480px) {
+  .bakers-table {
+    margin: 0 -0.5rem; /* Less negative margin on very small screens */
+  }
+
   .scores-table th {
     font-size: 0.75rem;
-    padding: 0.5rem 0.3rem;
+    padding: 0.5rem 0.4rem;
   }
 
   .scores-table td {
-    padding: 0.5rem 0.3rem;
+    padding: 0.5rem 0.4rem;
   }
 
   .baker-photo {
@@ -353,5 +410,14 @@
 
   .baker-name {
     font-size: 0.9rem;
+  }
+
+  .baker-info {
+    min-width: 100px;
+  }
+
+  .bakers-table::after {
+    font-size: 0.7rem;
+    padding: 0.4rem;
   }
 }
