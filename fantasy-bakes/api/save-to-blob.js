@@ -12,10 +12,18 @@ export default async function handler(request, response) {
       return response.status(400).json({ error: 'No data provided' });
     }
 
+    // Check if blob token is configured
+    const blobToken = process.env.BLOB_READ_WRITE_TOKEN;
+    if (!blobToken) {
+      console.error('BLOB_READ_WRITE_TOKEN not configured');
+      return response.status(500).json({ error: 'Blob token not configured' });
+    }
+
     // Save to Vercel Blob storage
     const blob = await put('data.json', JSON.stringify(data, null, 2), {
       access: 'public',
       contentType: 'application/json',
+      token: blobToken,
     });
 
     console.log('✅ Data saved to blob storage:', blob.url);
