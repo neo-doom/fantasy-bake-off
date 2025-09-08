@@ -175,7 +175,8 @@
   width: 100%;
   border-collapse: collapse;
   color: black;
-  /* Ensure minimum width to trigger horizontal scroll on mobile */
+  /* Force fixed layout and explicit width for mobile scrolling */
+  table-layout: fixed;
   min-width: 700px;
 }
 
@@ -353,6 +354,16 @@
     position: relative;
     margin: 0 -1rem; /* Extend to edges on mobile */
     border-radius: 0;
+    /* Force horizontal scroll on mobile */
+    overflow-x: scroll !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Force table to be definitively wider than mobile screens */
+  .scores-table {
+    width: 750px !important; /* Explicit width larger than mobile screens */
+    min-width: 750px !important;
+    table-layout: fixed !important;
   }
 
   .bakers-table::after {
@@ -392,6 +403,7 @@
 @media (max-width: 480px) {
   .bakers-table {
     margin: 0 -0.5rem; /* Less negative margin on very small screens */
+    overflow-x: scroll !important;
   }
 
   .scores-table th {
