@@ -35,6 +35,7 @@ export default async function handler(request, response) {
     const blob = await put('data.json', jsonData, {
       access: 'public',
       contentType: 'application/json',
+      allowOverwrite: true,
     });
 
     console.log('✅ Data saved to blob storage:', blob.url);
