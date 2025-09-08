@@ -103,7 +103,7 @@ class DataService {
           console.log('✅ Using local fallback data');
           return localData;
         }
-      } catch (fallbackError) {
+      } catch {
         console.log('❌ Local fallback data not available');
       }
       

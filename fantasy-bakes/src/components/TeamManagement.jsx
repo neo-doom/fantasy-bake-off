@@ -7,7 +7,6 @@ function TeamManagement({ selectedWeek }) {
   const [bakers, setBakers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
-  const [currentWeek, setCurrentWeek] = useState(1);
 
   useEffect(() => {
     loadData();
@@ -18,7 +17,6 @@ function TeamManagement({ selectedWeek }) {
       const data = await dataService.getData();
       setTeams(data.season.teams);
       setBakers(data.season.bakers);
-      setCurrentWeek(data.season.currentWeek);
     } catch (error) {
       console.error('Error loading team data:', error);
     }
