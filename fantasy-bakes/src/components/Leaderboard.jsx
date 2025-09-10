@@ -48,7 +48,7 @@ function Leaderboard({ selectedWeek }) {
 
   const getBakerPhoto = (bakerId) => {
     // Use generic baker photo names like baker1.jpg, baker2.jpg, etc.
-    return `/images/bakers/${bakerId}.jpg`;
+    return `/images/bakers/${baker.name}.jpg`;
   };
 
   if (loading) {
