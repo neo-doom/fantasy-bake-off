@@ -46,9 +46,8 @@ function Leaderboard({ selectedWeek }) {
     return currentWeekData.scores[bakerId];
   };
 
-  const getBakerPhoto = (bakerId) => {
-    // Use generic baker photo names like baker1.jpg, baker2.jpg, etc.
-    return `/images/bakers/${baker.name}.jpg`;
+  const getBakerPhoto = (baker) => {
+    return baker.photo || `/images/bakers/${baker.name.toLowerCase().replace(/\s+/g, '')}.jpg`;
   };
 
   if (loading) {
@@ -117,7 +116,7 @@ function Leaderboard({ selectedWeek }) {
                         <td className="td-baker">
                           <div className="baker-cell">
                             <img 
-                              src={getBakerPhoto(baker.id)} 
+                              src={getBakerPhoto(baker)} 
                               alt={baker.name}
                               className="baker-photo"
                               onError={(e) => {
