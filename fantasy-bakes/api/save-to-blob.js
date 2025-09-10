@@ -25,6 +25,7 @@ export default async function handler(request, response) {
       return response.status(400).json({ error: 'No data provided' });
     }
 
+=======
     // Get environment-specific blob URL and token (same as data.js)
     const blobUrl = process.env.VITE_VERCEL_BLOB_URL;
     const blobToken = process.env.BLOB_READ_WRITE_TOKEN;
@@ -39,6 +40,7 @@ export default async function handler(request, response) {
       return response.status(500).json({ error: 'Blob token not configured' });
     }
 
+=======
     console.log('📝 Saving data to deployment-specific blob storage:', blobUrl);
     
     const jsonData = JSON.stringify(data, null, 2);
