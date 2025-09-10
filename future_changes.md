@@ -1,6 +1,0 @@
-- Change the color shceme. 
-- Make it centered on the web page
-- On the home page, add the ability to toggle between weeks to see that week's scores
-- On the admin page, add the ability to toggle back to previous weeks to ammend scores
-- When a baker is eliminated, strike out their name on the leaderboard
-- Add a link to a scoring breadk down on the home page. 

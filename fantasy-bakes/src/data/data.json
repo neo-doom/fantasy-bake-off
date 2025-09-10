@@ -1,130 +1,148 @@
 {
   "season": {
     "name": "Season 2025",
-    "currentWeek": 6,
+    "currentWeek": 1,
     "isActive": true,
     "teams": [
       {
         "id": "team1",
-        "name": "Soggy Bottoms",
+        "name": "A Quick Rise and Sticky Finish",
         "members": "Parker & Elena",
-        "bakers": ["baker1", "baker2"]
+        "bakers": [
+          "baker1",
+          "baker2"
+        ]
       },
       {
-        "id": "team2", 
-        "name": "Rising Stars",
+        "id": "team2",
+        "name": "Moist and Ready",
         "members": "Nick",
-        "bakers": ["baker3", "baker4"]
+        "bakers": [
+          "baker3",
+          "baker4"
+        ]
       },
       {
         "id": "team3",
-        "name": "Flour Power",
+        "name": "Recipe for Disaster",
         "members": "Courtney",
-        "bakers": ["baker5", "baker6"]
+        "bakers": [
+          "baker5",
+          "baker6"
+        ]
       },
       {
         "id": "team4",
-        "name": "Batter Up",
+        "name": "Half Underbaked",
         "members": "Case/Tess",
-        "bakers": ["baker7", "baker8"]
+        "bakers": [
+          "baker7",
+          "baker8"
+        ]
       },
       {
         "id": "team5",
-        "name": "Sweet Dreams",
-        "members": "Christine & Jonathan",
-        "bakers": ["baker9", "baker10"]
+        "name": "Crustine Butterbuns",
+        "members": "Christine",
+        "bakers": [
+          "baker9",
+          "baker10"
+        ]
       },
       {
         "id": "team6",
-        "name": "Golden Whisk",
+        "name": "Don't Go Baking My Heart",
         "members": "Wes & Chloe",
-        "bakers": ["baker11", "baker12"]
+        "bakers": [
+          "baker11",
+          "baker12"
+        ]
       }
     ],
     "bakers": [
       {
         "id": "baker1",
-        "name": "Aaron",
-        "photo": "/images/bakers/baker1.jpg",
+        "name": "Nadia",
+        "photo": "/images/bakers/nadia.jpg",
         "eliminated": false,
         "eliminatedWeek": null
       },
       {
         "id": "baker2",
-        "name": "Hassan",
-        "photo": "/images/bakers/baker2.jpg",
+        "name": "Tom",
+        "photo": "/images/bakers/tom.jpg",
         "eliminated": false,
         "eliminatedWeek": null
       },
       {
         "id": "baker3",
-        "name": "Iain",
-        "photo": "/images/bakers/baker3.jpg",
+        "name": "Jasmine",
+        "photo": "/images/bakers/jasmine.jpg",
         "eliminated": false,
         "eliminatedWeek": null
       },
       {
         "id": "baker4",
-        "name": "Jasmine",
-        "photo": "/images/bakers/baker4.jpg",
-        "eliminated": true,
-        "eliminatedWeek": 2
+        "name": "Lesley",
+        "photo": "/images/bakers/lesley.jpg",
+        "eliminated": false,
+        "eliminatedWeek": null
       },
       {
         "id": "baker5",
-        "name": "Jessika",
-        "photo": "/images/bakers/baker5.jpg",
+        "name": "Aaron",
+        "photo": "/images/bakers/aaron.jpg",
         "eliminated": false,
         "eliminatedWeek": null
       },
       {
         "id": "baker6",
-        "name": "Leighton",
-        "photo": "/images/bakers/baker6.jpg",
-        "eliminated": true,
-        "eliminatedWeek": 3
+        "name": "Toby",
+        "photo": "/images/bakers/toby.jpg",
+        "eliminated": false,
+        "eliminatedWeek": null
       },
       {
         "id": "baker7",
-        "name": "Lesley",
-        "photo": "/images/bakers/baker7.jpg",
+        "name": "Leighton",
+        "photo": "/images/bakers/leighton.jpg",
         "eliminated": false,
         "eliminatedWeek": null
       },
       {
         "id": "baker8",
-        "name": "Nadia",
-        "photo": "/images/bakers/baker8.jpg",
-        "eliminated": true,
-        "eliminatedWeek": 4
+        "name": "Iain",
+        "photo": "/images/bakers/iain.jpg",
+        "eliminated": false,
+        "eliminatedWeek": null
       },
       {
         "id": "baker9",
-        "name": "Nataliia",
-        "photo": "/images/bakers/baker9.jpg",
+        "name": "Jessika",
+        "photo": "/images/bakers/jessika.jpg",
         "eliminated": false,
         "eliminatedWeek": null
       },
       {
         "id": "baker10",
-        "name": "Pui Man",
-        "photo": "/images/bakers/baker10.jpg",
-        "eliminated": true,
-        "eliminatedWeek": 5
+        "name": "Nataliia",
+        "photo": "/images/bakers/nataliia.jpg",
+        "eliminated": false,
+        "eliminatedWeek": null
       },
       {
         "id": "baker11",
-        "name": "Toby",
-        "photo": "/images/bakers/baker11.jpg",
-        "eliminated": true,
-        "eliminatedWeek": 6
+        "name": "Pui Man",
+        "photo": "/images/bakers/puiman.jpg",
+        "eliminated": false,
+        "eliminatedWeek": null
       },
       {
         "id": "baker12",
-        "name": "Tom",
-        "photo": "/images/bakers/baker12.jpg",
-        "eliminated": true,
-        "eliminatedWeek": 1
+        "name": "Toby",
+        "photo": "/images/bakers/toby.jpg",
+        "eliminated": false,
+        "eliminatedWeek": null
       }
     ],
     "weeks": [
@@ -136,20 +154,20 @@
           "baker1": {
             "survived": true,
             "technicalWin": false,
-            "starBaker": true,
+            "starBaker": false,
             "handshake": false,
             "soggyBottom": false,
-            "manualAdjustment": 0,
-            "total": 4
+            "manualAdjustment": 1,
+            "total": 2
           },
           "baker2": {
             "survived": true,
-            "technicalWin": true,
+            "technicalWin": false,
             "starBaker": false,
-            "handshake": true,
+            "handshake": false,
             "soggyBottom": false,
             "manualAdjustment": 0,
-            "total": 6
+            "total": 1
           },
           "baker3": {
             "survived": true,
@@ -165,9 +183,9 @@
             "technicalWin": false,
             "starBaker": false,
             "handshake": false,
-            "soggyBottom": true,
+            "soggyBottom": false,
             "manualAdjustment": 0,
-            "total": 0.5
+            "total": 1
           },
           "baker5": {
             "survived": true,
@@ -180,12 +198,12 @@
           },
           "baker6": {
             "survived": true,
-            "technicalWin": false,
+            "technicalWin": true,
             "starBaker": false,
-            "handshake": true,
+            "handshake": false,
             "soggyBottom": false,
             "manualAdjustment": 0,
-            "total": 4
+            "total": 3
           },
           "baker7": {
             "survived": true,
@@ -217,11 +235,11 @@
           "baker10": {
             "survived": true,
             "technicalWin": false,
-            "starBaker": false,
+            "starBaker": true,
             "handshake": false,
             "soggyBottom": false,
             "manualAdjustment": 0,
-            "total": 1
+            "total": 4
           },
           "baker11": {
             "survived": true,
@@ -233,21 +251,21 @@
             "total": 1
           },
           "baker12": {
-            "survived": false,
-            "technicalWin": false,
+            "survived": true,
+            "technicalWin": true,
             "starBaker": false,
             "handshake": false,
-            "soggyBottom": true,
+            "soggyBottom": false,
             "manualAdjustment": 0,
-            "total": -0.5
+            "total": 3
           }
         },
-        "notes": "An exciting first week! Emma takes Star Baker while Ben becomes our first elimination. James impressed with both a technical win and handshake!"
+        "notes": "Crustine Butterbuns rises to the occasion as Nataliia claims Star Baker honors. Recipe for Disaster and Don't go Baking My Heart follow closely behind after Toby's technical triumph."
       },
       {
         "weekNumber": 2,
         "theme": "Biscuit & Traybake Week",
-        "active": true,
+        "active": false,
         "scores": {
           "baker1": {
             "survived": true,
@@ -354,7 +372,7 @@
       {
         "weekNumber": 3,
         "theme": "Bread Week",
-        "active": true,
+        "active": false,
         "scores": {
           "baker1": {
             "survived": true,
@@ -452,7 +470,7 @@
       {
         "weekNumber": 4,
         "theme": "Dessert Week",
-        "active": true,
+        "active": false,
         "scores": {
           "baker1": {
             "survived": true,
@@ -541,7 +559,7 @@
       {
         "weekNumber": 5,
         "theme": "Pastry Week",
-        "active": true,
+        "active": false,
         "scores": {
           "baker1": {
             "survived": true,
@@ -621,7 +639,7 @@
       {
         "weekNumber": 6,
         "theme": "Japanese Week",
-        "active": true,
+        "active": false,
         "scores": {
           "baker1": {
             "survived": true,
@@ -693,29 +711,213 @@
         "weekNumber": 7,
         "theme": "Caramel Week",
         "active": false,
-        "scores": {},
-        "notes": ""
+        "scores": {
+          "baker1": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker2": {
+            "survived": true,
+            "technicalWin": true,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 3
+          },
+          "baker3": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker5": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker7": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker9": {
+            "survived": false,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": true,
+            "manualAdjustment": 0,
+            "total": -0.5
+          }
+        },
+        "notes": "This was a wild week "
       },
       {
         "weekNumber": 8,
         "theme": "Danish Week",
         "active": false,
-        "scores": {},
-        "notes": ""
+        "scores": {
+          "baker1": {
+            "survived": true,
+            "technicalWin": true,
+            "starBaker": true,
+            "handshake": true,
+            "soggyBottom": true,
+            "manualAdjustment": 0,
+            "total": 8.5
+          },
+          "baker2": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker3": {
+            "survived": false,
+            "technicalWin": true,
+            "starBaker": true,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 5
+          },
+          "baker5": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": true,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 4
+          },
+          "baker7": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 2,
+            "total": 3
+          }
+        },
+        "notes": "This was another crazy episode"
       },
       {
         "weekNumber": 9,
         "theme": "Patisserie Week",
         "active": false,
-        "scores": {},
+        "scores": {
+          "baker2": {
+            "survived": true,
+            "technicalWin": true,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 3
+          },
+          "baker3": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": true,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 4
+          },
+          "baker5": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": true,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 4
+          },
+          "baker7": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": true,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 4
+          },
+          "baker1": {
+            "survived": false,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": true,
+            "manualAdjustment": 0,
+            "total": -0.5
+          }
+        },
         "notes": ""
       },
       {
         "weekNumber": 10,
         "theme": "The Final",
         "active": false,
-        "scores": {},
-        "notes": ""
+        "scores": {
+          "baker3": {
+            "survived": true,
+            "technicalWin": false,
+            "starBaker": false,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 1
+          },
+          "baker5": {
+            "survived": true,
+            "technicalWin": true,
+            "starBaker": true,
+            "handshake": false,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 6
+          },
+          "baker7": {
+            "survived": true,
+            "technicalWin": true,
+            "starBaker": false,
+            "handshake": true,
+            "soggyBottom": false,
+            "manualAdjustment": 10,
+            "total": 16
+          },
+          "baker2": {
+            "survived": false,
+            "technicalWin": true,
+            "starBaker": true,
+            "handshake": true,
+            "soggyBottom": false,
+            "manualAdjustment": 0,
+            "total": 8
+          }
+        },
+        "notes": "wow a description "
       }
     ]
   }
