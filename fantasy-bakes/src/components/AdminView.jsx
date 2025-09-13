@@ -12,6 +12,8 @@ function AdminView() {
   const [selectedWeek, setSelectedWeek] = useState(null);
   const [totalWeeks, setTotalWeeks] = useState(0);
   const [currentWeekData, setCurrentWeekData] = useState(null);
+  const [editingTheme, setEditingTheme] = useState(false);
+  const [tempTheme, setTempTheme] = useState('');
 
   useEffect(() => {
     const loadData = async () => {
@@ -97,6 +99,34 @@ function AdminView() {
     }
   };
 
+  const startEditingTheme = () => {
+    setTempTheme(currentWeekData?.theme || '');
+    setEditingTheme(true);
+  };
+
+  const cancelEditingTheme = () => {
+    setEditingTheme(false);
+    setTempTheme('');
+  };
+
+  const saveTheme = async () => {
+    if (!tempTheme.trim()) return;
+    
+    try {
+      if (await dataService.updateWeekData(selectedWeek, { theme: tempTheme.trim() })) {
+        const updatedData = await dataService.getData();
+        setData(updatedData);
+        const updatedWeekData = await dataService.getWeekByNumber(selectedWeek);
+        setCurrentWeekData(updatedWeekData);
+        setEditingTheme(false);
+        setTempTheme('');
+      }
+    } catch (error) {
+      console.error('Error updating theme:', error);
+      alert('Failed to update theme. Please try again.');
+    }
+  };
+
   if (!isAuthenticated) {
     return <AdminLogin onLogin={handleLogin} />;
   }
@@ -130,7 +160,39 @@ function AdminView() {
             <span className="current-week">Week {selectedWeek}</span>
             {currentWeekData && (
               <>
-                <span className="week-theme">{currentWeekData.theme}</span>
+                <div className="week-theme-container">
+                  {editingTheme ? (
+                    <div className="theme-edit">
+                      <input
+                        type="text"
+                        className="theme-input"
+                        value={tempTheme}
+                        onChange={(e) => setTempTheme(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') saveTheme();
+                          if (e.key === 'Escape') cancelEditingTheme();
+                        }}
+                        placeholder="Enter week theme..."
+                        autoFocus
+                      />
+                      <div className="theme-actions">
+                        <button className="theme-save-btn" onClick={saveTheme}>
+                          ✓
+                        </button>
+                        <button className="theme-cancel-btn" onClick={cancelEditingTheme}>
+                          ✗
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="theme-display">
+                      <span className="week-theme">{currentWeekData.theme}</span>
+                      <button className="edit-theme-btn" onClick={startEditingTheme} title="Edit theme">
+                        ✏️
+                      </button>
+                    </div>
+                  )}
+                </div>
                 <span className={`week-status ${currentWeekData.active ? 'active' : 'inactive'}`}>
                   {currentWeekData.active ? '🟢 Active' : '⭕ Inactive'}
                 </span>
