@@ -6,53 +6,57 @@
     "teams": [
       {
         "id": "team1",
-        "name": "Whiskey Business",
+        "name": "A Quick Rise and Sticky Finish",
         "members": "Lexie",
         "bakers": [
           "baker1",
-          "baker2"
+          "baker2",
+          "baker3"
         ]
       },
       {
         "id": "team2",
-        "name": "Bakin' Baddies",
+        "name": "Moist and Ready",
         "members": "Conor",
         "bakers": [
-          "baker3",
-          "baker4"
-        ]
-      },
-      {
-        "id": "team3",
-        "name": "Sir Bakes-a-Lot",
-        "members": "Chloe",
-        "bakers": [
+          "baker4",
           "baker5",
           "baker6"
         ]
       },
       {
-        "id": "team4",
-        "name": "",
-        "members": "Wes",
+        "id": "team3",
+        "name": "Recipe for Disaster",
+        "members": "Chloe",
         "bakers": [
           "baker7",
-          "baker8"
+          "baker8",
+          "baker9"
+        ]
+      },
+      {
+        "id": "team4",
+        "name": "Half Underbaked",
+        "members": "Wes",
+        "bakers": [
+          "baker10",
+          "baker11",
+          "baker12"
         ]
       }
     ],
     "bakers": [
       {
         "id": "baker1",
-        "name": "Jessika",
-        "photo": "/images/bakers/jessika.jpg",
+        "name": "Nadia",
+        "photo": "/images/bakers/nadia.jpg",
         "eliminated": false,
         "eliminatedWeek": null
       },
       {
         "id": "baker2",
-        "name": "Nataliia",
-        "photo": "/images/bakers/nataliia.jpg",
+        "name": "Tom",
+        "photo": "/images/bakers/tom.jpg",
         "eliminated": false,
         "eliminatedWeek": null
       },
@@ -65,8 +69,8 @@
       },
       {
         "id": "baker4",
-        "name": "Tom",
-        "photo": "/images/bakers/tom.jpg",
+        "name": "Lesley",
+        "photo": "/images/bakers/lesley.jpg",
         "eliminated": false,
         "eliminatedWeek": null
       },
@@ -79,22 +83,22 @@
       },
       {
         "id": "baker6",
-        "name": "Iain",
-        "photo": "/images/bakers/iain.jpg",
+        "name": "Toby",
+        "photo": "/images/bakers/toby.jpg",
         "eliminated": false,
         "eliminatedWeek": null
       },
       {
         "id": "baker7",
-        "name": "Pui Man",
-        "photo": "/images/bakers/puiman.jpg",
+        "name": "Leighton",
+        "photo": "/images/bakers/leighton.jpg",
         "eliminated": false,
         "eliminatedWeek": null
       },
       {
         "id": "baker8",
-        "name": "Toby",
-        "photo": "/images/bakers/toby.jpg",
+        "name": "Iain",
+        "photo": "/images/bakers/iain.jpg",
         "eliminated": false,
         "eliminatedWeek": null
       },
