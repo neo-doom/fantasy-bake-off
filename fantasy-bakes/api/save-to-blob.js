@@ -19,13 +19,7 @@ export default async function handler(request, response) {
   }
 
   try {
-    const { data } = request.body;
-    
-    if (!data) {
-      return response.status(400).json({ error: 'No data provided' });
-    }
 
-=======
     // Get environment-specific blob URL and token (same as data.js)
     const blobUrl = process.env.VITE_VERCEL_BLOB_URL;
     const blobToken = process.env.BLOB_READ_WRITE_TOKEN;
@@ -40,19 +34,19 @@ export default async function handler(request, response) {
       return response.status(500).json({ error: 'Blob token not configured' });
     }
 
-=======
-    console.log('📝 Saving data to deployment-specific blob storage:', blobUrl);
+    // Get deployment-specific filename from environment or default to data.json
+    const deploymentName = process.env.VERCEL_ENV || process.env.DEPLOYMENT_NAME || 'default';
+    const filename = deploymentName !== 'production' ? `${deploymentName}_data.json` : 'data.json';
+
+    console.log('📝 Saving data to blob storage with deployment-specific token');
+    console.log('📁 Using filename:', filename);
     
-    const jsonData = JSON.stringify(data, null, 2);
-    
-    // Save directly to the deployment-specific blob URL using PUT
-    const saveResponse = await fetch(blobUrl, {
-      method: 'PUT',
-      headers: {
-        'Authorization': `Bearer ${blobToken}`,
-        'Content-Type': 'application/json',
-      },
-      body: jsonData
+    // Use @vercel/blob with the deployment-specific token and raw request body
+    const blob = await put(filename, request, {
+      access: 'public',
+      contentType: 'application/json',
+      allowOverwrite: true,
+      token: blobToken,
     });
 
     if (!saveResponse.ok) {
@@ -66,7 +60,9 @@ export default async function handler(request, response) {
     
     response.status(200).json({ 
       success: true, 
-      url: blobUrl,
+      url: blob.url,
+      filename: filename,
+
       message: 'Data saved to deployment-specific blob storage successfully' 
     });
   } catch (error) {
@@ -78,11 +74,9 @@ export default async function handler(request, response) {
   }
 }
 
-// Config for Pages API Routes
+// Config for Pages API Routes - disable body parser for blob uploads
 export const config = {
   api: {
-    bodyParser: {
-      sizeLimit: '10mb',
-    },
+    bodyParser: false,
   },
 };
