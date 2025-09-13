@@ -21,12 +21,6 @@ export default async function handler(request, response) {
   }
 
   try {
-    const { data } = request.body;
-    
-    if (!data) {
-      return response.status(400).json({ error: 'No data provided' });
-    }
-
     // Get environment-specific blob token
     const blobToken = process.env.BLOB_READ_WRITE_TOKEN;
     
@@ -35,16 +29,19 @@ export default async function handler(request, response) {
       return response.status(500).json({ error: 'Blob token not configured' });
     }
 
+    // Get deployment-specific filename from environment or default to data.json
+    const deploymentName = process.env.VERCEL_ENV || process.env.DEPLOYMENT_NAME || 'default';
+    const filename = deploymentName !== 'production' ? `${deploymentName}_data.json` : 'data.json';
+
     console.log('📝 Saving data to blob storage with deployment-specific token');
+    console.log('📁 Using filename:', filename);
     
-    const jsonData = JSON.stringify(data, null, 2);
-    
-    // Use @vercel/blob with the deployment-specific token
-    const blob = await put('data.json', jsonData, {
+    // Use @vercel/blob with the deployment-specific token and raw request body
+    const blob = await put(filename, request, {
       access: 'public',
       contentType: 'application/json',
       allowOverwrite: true,
-      token: blobToken, // Use deployment-specific token
+      token: blobToken,
     });
 
     console.log('✅ Data saved to blob storage:', blob.url);
@@ -52,6 +49,7 @@ export default async function handler(request, response) {
     response.status(200).json({ 
       success: true, 
       url: blob.url,
+      filename: filename,
       message: 'Data saved to deployment-specific blob storage successfully' 
     });
   } catch (error) {
@@ -63,11 +61,9 @@ export default async function handler(request, response) {
   }
 }
 
-// Config for Pages API Routes
+// Config for Pages API Routes - disable body parser for blob uploads
 export const config = {
   api: {
-    bodyParser: {
-      sizeLimit: '10mb',
-    },
+    bodyParser: false,
   },
 };
