@@ -21,17 +21,37 @@ export default async function handler(request, response) {
   }
 
   try {
-    // Get environment-specific blob token
+    // Get environment-specific blob token and URL
     const blobToken = process.env.BLOB_READ_WRITE_TOKEN;
+    const blobUrl = process.env.VITE_VERCEL_BLOB_URL;
     
     if (!blobToken) {
       console.error('BLOB_READ_WRITE_TOKEN not configured');
       return response.status(500).json({ error: 'Blob token not configured' });
     }
 
-    // Get deployment-specific filename from environment or default to data.json
-    const deploymentName = process.env.VERCEL_ENV || process.env.DEPLOYMENT_NAME || 'default';
-    const filename = deploymentName !== 'production' ? `${deploymentName}_data.json` : 'data.json';
+    if (!blobUrl) {
+      console.error('VITE_VERCEL_BLOB_URL not configured');
+      return response.status(500).json({ error: 'Blob URL not configured - cannot determine target filename' });
+    }
+
+    // Extract filename from the blob URL - MUST be environment specific
+    let filename;
+    try {
+      const url = new URL(blobUrl);
+      const pathParts = url.pathname.split('/');
+      filename = pathParts[pathParts.length - 1];
+      
+      if (!filename || filename === '') {
+        throw new Error('Empty filename from blob URL');
+      }
+    } catch (error) {
+      console.error('Failed to extract filename from blob URL:', blobUrl, error);
+      return response.status(500).json({ 
+        error: 'Invalid blob URL - cannot determine target filename',
+        details: error.message 
+      });
+    }
 
     console.log('📝 Saving data to blob storage with deployment-specific token');
     console.log('📁 Using filename:', filename);
