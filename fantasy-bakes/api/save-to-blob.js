@@ -1,3 +1,5 @@
+import { put } from '@vercel/blob';
+
 // Pages API Route for saving data to Vercel Blob Storage
 export default async function handler(request, response) {
   // Set CORS headers
@@ -19,16 +21,9 @@ export default async function handler(request, response) {
   }
 
   try {
-
-    // Get environment-specific blob URL and token (same as data.js)
-    const blobUrl = process.env.VITE_VERCEL_BLOB_URL;
+    // Get environment-specific blob token
     const blobToken = process.env.BLOB_READ_WRITE_TOKEN;
     
-    if (!blobUrl) {
-      console.error('VITE_VERCEL_BLOB_URL not configured');
-      return response.status(500).json({ error: 'Blob URL not configured' });
-    }
-
     if (!blobToken) {
       console.error('BLOB_READ_WRITE_TOKEN not configured');
       return response.status(500).json({ error: 'Blob token not configured' });
@@ -49,20 +44,12 @@ export default async function handler(request, response) {
       token: blobToken,
     });
 
-    if (!saveResponse.ok) {
-      console.error('Failed to save to blob storage:', saveResponse.status, saveResponse.statusText);
-      return response.status(saveResponse.status).json({ 
-        error: `Failed to save data: ${saveResponse.status} ${saveResponse.statusText}` 
-      });
-    }
-
-    console.log('✅ Data saved to deployment-specific blob storage');
+    console.log('✅ Data saved to deployment-specific blob storage:', blob.url);
     
     response.status(200).json({ 
       success: true, 
       url: blob.url,
       filename: filename,
-
       message: 'Data saved to deployment-specific blob storage successfully' 
     });
   } catch (error) {
